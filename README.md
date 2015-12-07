@@ -1,0 +1,2 @@
+# PromoterHelper
+A Django application
