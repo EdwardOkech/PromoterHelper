@@ -1,3 +1,44 @@
-from django.db import models
 
-# Create your models here.
+from __future__ import unicode_literals
+from django.db import models
+from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
+from rapidsms.models import Contact
+
+@python_2_unicode_compatible
+class Coordinator(models.Model):
+    """
+     List of area co-ordinators
+    """
+    name = models.ForeignKey(Contact)
+    phone = models.CharField(max_length=25, unique=True)
+    email = models.EmailField(max_length=75, unique=True)
+
+    def __str__(self):
+        return 'Coordinator %s' % self.name
+
+@python_2_unicode_compatible
+class Group(models.Model):
+    """
+    Grouping promoters in area of operation basis  i.e KRA2-Migori, KRA3-Kuria
+    """
+    code = models.CharField(max_length=10, unique=True)
+    created_on = models.DateTimeField(default=timezone.now)
+    # coordinator = models.ForeignKey(Coordinator, default='coordinator')
+
+    def __str__(self):
+        return 'Group %s' % self.code
+
+
+@python_2_unicode_compatible
+class Member(models.Model):
+    """
+    Member of an SMS group
+    """
+    contact = models.ForeignKey(Contact)
+    group = models.ForeignKey(Group)
+    joined_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return '%s/%s' % (self.group, self.contact)
+
