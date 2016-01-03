@@ -21,7 +21,7 @@ ALLOWED_HOSTS = []
 INSTALLED_BACKENDS = {}
 
 RAPIDSMS_HANDLERS = (
-    # 'sms.handlers.create_group.CreateHandler',
+    'sms.handlers.create_group.CreateHandler',
     # 'sms.handlers.join_group.JoinHandler',
     # 'sms.handlers.msg_group.BroadcastHandler',
 )
@@ -99,7 +99,7 @@ ROOT_URLCONF = 'PromoterHelper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['[os.path.join(BASE_DIR, "templates")]'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -155,4 +155,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
 )
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, "templates")]
+# TEMPLATE_DIRS = [os.path.join(BASE_DIR, "templates")]
